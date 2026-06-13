@@ -18,3 +18,4 @@ class ExampleUnitTest {
         assert(appName.isNotEmpty()) { "Название приложения не должно быть пустым" }
     }
 }
+

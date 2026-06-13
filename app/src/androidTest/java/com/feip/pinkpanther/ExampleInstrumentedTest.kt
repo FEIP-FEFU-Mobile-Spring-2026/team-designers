@@ -17,3 +17,4 @@ class ExampleInstrumentedTest {
         assertEquals("com.feip.pinkpanther", appContext.packageName)
     }
 }
+

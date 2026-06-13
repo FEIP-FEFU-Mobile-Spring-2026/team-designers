@@ -22,4 +22,8 @@
 | Темцина Анастасия Вадимовна | Team Lead / Developer |
 | Малай Виктория Николаевна   | Developer  / Designer |
 
+## 🚀 Как запустить
 
+1. Склонируйте репозиторий:
+   ```bash
+   git clone https://github.com/FEIP-FEFU-Mobile-Spring-2026/team-designers.git

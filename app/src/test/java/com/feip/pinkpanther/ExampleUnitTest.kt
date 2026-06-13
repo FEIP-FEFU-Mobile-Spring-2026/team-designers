@@ -1,17 +1,20 @@
 package com.feip.pinkpanther
 
+import org.junit.Assert.assertEquals
 import org.junit.Test
 
-import org.junit.Assert.*
-
 /**
- * Example local unit test, which will execute on the development machine (host).
- *
- * See [testing documentation](http://d.android.com/tools/testing).
+ * Простой unit-тест для проверки базовой функциональности.
  */
 class ExampleUnitTest {
     @Test
     fun addition_isCorrect() {
         assertEquals(4, 2 + 2)
+    }
+
+    @Test
+    fun appName_isNotEmpty() {
+        val appName = "Розовая Пантера"
+        assert(appName.isNotEmpty()) { "Название приложения не должно быть пустым" }
     }
 }

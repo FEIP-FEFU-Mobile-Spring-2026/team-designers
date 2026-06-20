@@ -1,0 +1,52 @@
+{
+  "products": [
+    {
+      "id": 1,
+      "name": "Кроссовки Air Max",
+      "category": "Кроссовки",
+      "priceInKopecks": 89900,
+      "imageUrl": "https://via.placeholder.com/200x200/FF69B4/FFFFFF?text=Air+Max",
+      "tags": ["New", "Popular"]
+    },
+    {
+      "id": 2,
+      "name": "Ботинки зимние",
+      "category": "Ботинки",
+      "priceInKopecks": 129900,
+      "imageUrl": "https://via.placeholder.com/200x200/FF1493/FFFFFF?text=Winter+Boots",
+      "tags": ["New"]
+    },
+    {
+      "id": 3,
+      "name": "Кеды классические",
+      "category": "Кеды",
+      "priceInKopecks": 59900,
+      "imageUrl": "https://via.placeholder.com/200x200/DB7093/FFFFFF?text=Sneakers",
+      "tags": ["Sale"]
+    },
+    {
+      "id": 4,
+      "name": "Кроссовки беговые",
+      "category": "Кроссовки",
+      "priceInKopecks": 79900,
+      "imageUrl": "https://via.placeholder.com/200x200/FFB6C1/FFFFFF?text=Running",
+      "tags": ["New", "Sport"]
+    },
+    {
+      "id": 5,
+      "name": "Сапоги женские",
+      "category": "Ботинки",
+      "priceInKopecks": 149900,
+      "imageUrl": "https://via.placeholder.com/200x200/FF69B4/FFFFFF?text=Boots",
+      "tags": ["Premium"]
+    },
+    {
+      "id": 6,
+      "name": "Шлепанцы летние",
+      "category": "Шлепанцы",
+      "priceInKopecks": 29900,
+      "imageUrl": "https://via.placeholder.com/200x200/FF1493/FFFFFF?text=Sandals",
+      "tags": ["New", "Summer"]
+    }
+  ]
+}

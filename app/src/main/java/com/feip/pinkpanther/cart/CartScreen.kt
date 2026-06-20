@@ -10,24 +10,20 @@ import androidx.compose.ui.unit.dp
 @Composable
 fun CartScreen() {
     Box(
-        modifier = Modifier.fillMaxSize(),
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(16.dp),
         contentAlignment = Alignment.Center
     ) {
-        Column(
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.spacedBy(16.dp)
-        ) {
+        Column(horizontalAlignment = Alignment.CenterHorizontally) {
             Text(
-                text = "🛒",
-                style = MaterialTheme.typography.displayLarge
+                "Корзина пуста",
+                style = MaterialTheme.typography.headlineSmall
             )
+            Spacer(modifier = Modifier.height(8.dp))
             Text(
-                text = "Корзина пуста",
-                style = MaterialTheme.typography.headlineMedium
-            )
-            Text(
-                text = "Добавьте товары в корзину, чтобы сделать заказ",
-                style = MaterialTheme.typography.bodyLarge,
+                "Добавьте товары из каталога",
+                style = MaterialTheme.typography.bodyMedium,
                 color = MaterialTheme.colorScheme.onSurfaceVariant
             )
         }

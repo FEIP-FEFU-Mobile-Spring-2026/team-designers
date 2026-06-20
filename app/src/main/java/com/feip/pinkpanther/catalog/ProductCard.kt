@@ -17,11 +17,14 @@ import com.feip.pinkpanther.models.Product
 
 @Composable
 fun ProductCard(product: Product, modifier: Modifier = Modifier) {
+    // Переводим копейки в рубли
+    val priceInRubles = product.priceInKopecks / 100
+
     Card(
         modifier = modifier
             .padding(8.dp)
             .width(180.dp)
-            .height(280.dp),  // ← ФИКСИРОВАННАЯ ВЫСОТА!
+            .height(280.dp),
         shape = RoundedCornerShape(12.dp),
         elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
     ) {
@@ -31,7 +34,6 @@ fun ProductCard(product: Product, modifier: Modifier = Modifier) {
                 .padding(12.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            // Изображение фиксированного размера
             AsyncImage(
                 model = product.image,
                 contentDescription = product.name,
@@ -44,18 +46,16 @@ fun ProductCard(product: Product, modifier: Modifier = Modifier) {
 
             Spacer(modifier = Modifier.height(8.dp))
 
-            // Бейдж "NEW"
             if (product.isNew) {
                 Text(
                     text = "NEW",
                     color = MaterialTheme.colorScheme.primary,
                     fontWeight = FontWeight.Bold,
-                    fontSize = 12.sp,
-                    modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp)
+                    fontSize = 12.sp
                 )
+                Spacer(modifier = Modifier.height(4.dp))
             }
 
-            // Название товара
             Text(
                 text = product.name,
                 fontWeight = FontWeight.Medium,
@@ -66,9 +66,8 @@ fun ProductCard(product: Product, modifier: Modifier = Modifier) {
 
             Spacer(modifier = Modifier.height(4.dp))
 
-            // Цена
             Text(
-                text = "${product.price / 100} ₽",
+                text = "$priceInRubles ₽",
                 fontWeight = FontWeight.Bold,
                 color = MaterialTheme.colorScheme.primary,
                 fontSize = 16.sp

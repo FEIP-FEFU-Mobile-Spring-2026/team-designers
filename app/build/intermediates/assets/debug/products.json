@@ -3,7 +3,7 @@
     {
       "id": 1,
       "name": "Кроссовки Air Pink",
-      "price": 4990,
+      "priceInKopecks": 499000,
       "category": "Кроссовки",
       "image": "https://via.placeholder.com/150/FFB6C1/000000?text=Air+Pink",
       "tags": ["New"]
@@ -11,7 +11,7 @@
     {
       "id": 2,
       "name": "Ботинки Urban Rose",
-      "price": 6490,
+      "priceInKopecks": 649000,
       "category": "Ботинки",
       "image": "https://via.placeholder.com/150/FFB6C1/000000?text=Urban+Rose",
       "tags": []
@@ -19,7 +19,7 @@
     {
       "id": 3,
       "name": "Туфли Classic Pink",
-      "price": 3990,
+      "priceInKopecks": 399000,
       "category": "Туфли",
       "image": "https://via.placeholder.com/150/FFB6C1/000000?text=Classic",
       "tags": ["New"]
@@ -27,7 +27,7 @@
     {
       "id": 4,
       "name": "Кеды Soft Step",
-      "price": 2990,
+      "priceInKopecks": 299000,
       "category": "Кроссовки",
       "image": "https://via.placeholder.com/150/FFB6C1/000000?text=Soft+Step",
       "tags": []
@@ -35,7 +35,7 @@
     {
       "id": 5,
       "name": "Сапоги Winter Bloom",
-      "price": 7990,
+      "priceInKopecks": 799000,
       "category": "Ботинки",
       "image": "https://via.placeholder.com/150/FFB6C1/000000?text=Winter+Bloom",
       "tags": ["New"]

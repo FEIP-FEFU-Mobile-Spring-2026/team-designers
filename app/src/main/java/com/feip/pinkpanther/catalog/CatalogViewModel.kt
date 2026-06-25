@@ -1,6 +1,7 @@
 package com.feip.pinkpanther.catalog
 
-import androidx.lifecycle.ViewModel
+import android.app.Application
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import com.feip.pinkpanther.models.Product
 import com.feip.pinkpanther.repository.ProductRepository
@@ -9,7 +10,9 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
-class CatalogViewModel(private val repository: ProductRepository) : ViewModel() {
+class CatalogViewModel(application: Application) : AndroidViewModel(application) {
+
+    private val repository = ProductRepository(application)
 
     private val _uiState = MutableStateFlow(CatalogUiState())
     val uiState: StateFlow<CatalogUiState> = _uiState.asStateFlow()
@@ -37,6 +40,11 @@ class CatalogViewModel(private val repository: ProductRepository) : ViewModel() 
     fun getCurrentProducts(): List<Product> {
         val state = _uiState.value
         return repository.getProductsByCategory(state.products, state.selectedCategory)
+    }
+
+    fun formatPrice(kopecks: Int): String {
+        val rubles = kopecks / 100.0
+        return String.format("%.2f ₽", rubles)
     }
 }
 

@@ -5,40 +5,45 @@
       "name": "Кроссовки Air Pink",
       "priceInKopecks": 499000,
       "category": "Кроссовки",
-      "image": "https://via.placeholder.com/150/FFB6C1/000000?text=Air+Pink",
-      "tags": ["New"]
+      "imageUrl": "https://static.dropp.market/c064462e-a003-4bc9-b668-1afc67315ecb_500_1.jpg",
+      "tags": ["New"],
+      "longDescription": "Стильные розовые кроссовки для повседневной носки. Лёгкие, дышащие, с амортизацией."
     },
     {
       "id": 2,
       "name": "Ботинки Urban Rose",
       "priceInKopecks": 649000,
       "category": "Ботинки",
-      "image": "https://via.placeholder.com/150/FFB6C1/000000?text=Urban+Rose",
-      "tags": []
+      "imageUrl": "https://fabrika-obuvi.ru/upload/iblock/911/eiyp8611ui1vgou2yiwntccchsmolvmg.jpg",
+      "tags": [],
+      "longDescription": "Элегантные ботинки в розовом цвете. Натуральная кожа, удобная колодка."
     },
     {
       "id": 3,
       "name": "Туфли Classic Pink",
       "priceInKopecks": 399000,
       "category": "Туфли",
-      "image": "https://via.placeholder.com/150/FFB6C1/000000?text=Classic",
-      "tags": ["New"]
+      "imageUrl": "https://img.rosso-nero.ru/r/2x90F173Q9A/rs:fit:360:360:1/plain/images/products/1/5977/2834470745/large_tufli_letnie_lab_milano_0096a502_naturalnaja_kozha_rozovyj__1_.jpg@jpg",
+      "tags": ["New"],
+      "longDescription": "Классические туфли нежно-розового оттенка. Идеальны для офиса и особых случаев."
     },
     {
       "id": 4,
       "name": "Кеды Soft Step",
       "priceInKopecks": 299000,
       "category": "Кроссовки",
-      "image": "https://via.placeholder.com/150/FFB6C1/000000?text=Soft+Step",
-      "tags": []
+      "imageUrl": "https://superstep.ru/upload/resize_cache/iblock/4c2/2wistokx6ucedjlzxip0a7572xw3c52f/1080_1080_1/PM40548001.jpg",
+      "tags": [],
+      "longDescription": "Мягкие кеды для активных прогулок. Гибкая подошва, приятный материал."
     },
     {
       "id": 5,
       "name": "Сапоги Winter Bloom",
       "priceInKopecks": 799000,
       "category": "Ботинки",
-      "image": "https://via.placeholder.com/150/FFB6C1/000000?text=Winter+Bloom",
-      "tags": ["New"]
+      "imageUrl": "https://s14.stc.all.kpcdn.net/woman/wp-content/uploads/2023/01/kozhanye-zhenskie-sapogi_vipavenue.ru_.jpg",
+      "tags": ["New"],
+      "longDescription": "Тёплые зимние сапоги с мехом. Не промокают, отлично держат тепло."
     }
   ]
 }

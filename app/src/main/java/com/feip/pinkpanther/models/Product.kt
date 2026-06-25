@@ -1,16 +1,16 @@
 package com.feip.pinkpanther.models
 
-import kotlinx.serialization.Serializable
-
-@Serializable
 data class Product(
     val id: Int,
     val name: String,
     val priceInKopecks: Int,
     val category: String,
-    val image: String,
-    val tags: List<String> = emptyList()
+    val imageUrl: String,  // Было image
+    val tags: List<String> = emptyList(),
+    val longDescription: String? = null
 ) {
     val isNew: Boolean
         get() = tags.contains("New")
+
+    fun getDescription(): String = longDescription ?: "Описание пока не добавлено"
 }

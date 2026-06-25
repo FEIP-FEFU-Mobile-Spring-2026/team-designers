@@ -7,6 +7,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
@@ -17,7 +18,6 @@ import com.feip.pinkpanther.models.Product
 
 @Composable
 fun ProductCard(product: Product, modifier: Modifier = Modifier) {
-    // Переводим копейки в рубли
     val priceInRubles = product.priceInKopecks / 100
 
     Card(
@@ -26,7 +26,10 @@ fun ProductCard(product: Product, modifier: Modifier = Modifier) {
             .width(180.dp)
             .height(280.dp),
         shape = RoundedCornerShape(12.dp),
-        elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
+        elevation = CardDefaults.cardElevation(defaultElevation = 4.dp),
+        colors = CardDefaults.cardColors(
+            containerColor = Color.White
+        )
     ) {
         Column(
             modifier = Modifier
@@ -35,7 +38,7 @@ fun ProductCard(product: Product, modifier: Modifier = Modifier) {
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             AsyncImage(
-                model = product.image,
+                model = product.imageUrl,
                 contentDescription = product.name,
                 modifier = Modifier
                     .height(140.dp)
@@ -47,12 +50,18 @@ fun ProductCard(product: Product, modifier: Modifier = Modifier) {
             Spacer(modifier = Modifier.height(8.dp))
 
             if (product.isNew) {
-                Text(
-                    text = "NEW",
-                    color = MaterialTheme.colorScheme.primary,
-                    fontWeight = FontWeight.Bold,
-                    fontSize = 12.sp
-                )
+                Surface(
+                    shape = RoundedCornerShape(8.dp),
+                    color = Color(0xFFFF69B4).copy(alpha = 0.2f)
+                ) {
+                    Text(
+                        text = "NEW",
+                        color = Color(0xFFFF69B4),
+                        fontWeight = FontWeight.Bold,
+                        fontSize = 12.sp,
+                        modifier = Modifier.padding(horizontal = 8.dp, vertical = 2.dp)
+                    )
+                }
                 Spacer(modifier = Modifier.height(4.dp))
             }
 
@@ -69,7 +78,7 @@ fun ProductCard(product: Product, modifier: Modifier = Modifier) {
             Text(
                 text = "$priceInRubles ₽",
                 fontWeight = FontWeight.Bold,
-                color = MaterialTheme.colorScheme.primary,
+                color = Color(0xFFFF69B4),
                 fontSize = 16.sp
             )
         }

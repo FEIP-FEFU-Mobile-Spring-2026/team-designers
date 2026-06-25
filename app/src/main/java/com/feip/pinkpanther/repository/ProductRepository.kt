@@ -2,7 +2,8 @@ package com.feip.pinkpanther.repository
 
 import android.content.Context
 import com.feip.pinkpanther.models.Product
-import kotlinx.serialization.json.Json
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 import java.io.IOException
 
 class ProductRepository(private val context: Context) {
@@ -12,10 +13,11 @@ class ProductRepository(private val context: Context) {
             val jsonString = context.assets.open("products.json")
                 .bufferedReader().use { it.readText() }
 
-            val parsed = Json { ignoreUnknownKeys = true }
-                .decodeFromString<ProductsResponse>(jsonString)
-            parsed.products
+            val responseType = object : TypeToken<ProductsResponse>() {}.type
+            val response: ProductsResponse = Gson().fromJson(jsonString, responseType)
+            response.products
         } catch (e: IOException) {
+            e.printStackTrace()
             emptyList()
         }
     }
@@ -34,5 +36,4 @@ class ProductRepository(private val context: Context) {
     }
 }
 
-@kotlinx.serialization.Serializable
 private data class ProductsResponse(val products: List<Product>)

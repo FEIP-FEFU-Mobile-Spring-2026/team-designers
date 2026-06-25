@@ -1,31 +1,24 @@
 package com.feip.pinkpanther.repository
 
-import android.content.Context
+import com.feip.pinkpanther.data.api.RetrofitClient
 import com.feip.pinkpanther.models.Category
 import com.feip.pinkpanther.models.Product
-import com.feip.pinkpanther.models.ProductsData
-import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
-import java.io.IOException
 
-class ProductRepository(private val context: Context) {
+class ProductRepository {
 
+    private val api = RetrofitClient.apiService
     private var categories: List<Category> = emptyList()
     private var allProducts: List<Product> = emptyList()
 
-    fun loadProducts(): List<Product> {
+    suspend fun loadProducts(): Result<List<Product>> {
         return try {
-            val jsonString = context.assets.open("products.json")
-                .bufferedReader().use { it.readText() }
-
-            val type = object : TypeToken<ProductsData>() {}.type
-            val data: ProductsData = Gson().fromJson(jsonString, type)
-            categories = data.categories
-            allProducts = data.items
-            data.items
-        } catch (e: IOException) {
+            val response = api.getCatalog(RetrofitClient.TOKEN)
+            categories = response.categories
+            allProducts = response.items
+            Result.success(response.items)
+        } catch (e: Exception) {
             e.printStackTrace()
-            emptyList()
+            Result.failure(e)
         }
     }
 
@@ -41,5 +34,9 @@ class ProductRepository(private val context: Context) {
             val categoryId = categories.find { it.name == category }?.id ?: ""
             products.filter { it.categoryId == categoryId }
         }
+    }
+
+    fun getCategoryName(categoryId: String): String {
+        return categories.find { it.id == categoryId }?.name ?: ""
     }
 }

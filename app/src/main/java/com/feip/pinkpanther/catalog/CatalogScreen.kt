@@ -5,9 +5,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
-import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -18,7 +16,6 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import coil.compose.AsyncImage
 import com.feip.pinkpanther.models.Product
@@ -32,7 +29,6 @@ fun CatalogScreen(
     var selectedProduct by remember { mutableStateOf<Product?>(null) }
 
     Column(modifier = Modifier.fillMaxSize()) {
-        // ===== HEADER =====
         Text(
             text = "🐾 Розовая Пантера",
             style = MaterialTheme.typography.headlineMedium,
@@ -43,70 +39,92 @@ fun CatalogScreen(
                 .padding(16.dp)
         )
 
-        // ===== ТАБЫ КАТЕГОРИЙ =====
-        ScrollableTabRow(
-            selectedTabIndex = maxOf(0, uiState.categories.indexOf(uiState.selectedCategory)),
-            containerColor = Color.White,
-            edgePadding = 8.dp,
-            modifier = Modifier.padding(vertical = 4.dp)
-        ) {
-            uiState.categories.forEach { category ->
-                Tab(
-                    selected = category == uiState.selectedCategory,
-                    onClick = { viewModel.selectCategory(category) },
-                    text = {
-                        Text(
-                            text = category,
-                            modifier = Modifier.padding(horizontal = 12.dp, vertical = 8.dp),
-                            color = if (category == uiState.selectedCategory)
-                                Color(0xFFFF69B4)
-                            else
-                                Color.Gray
-                        )
-                    }
-                )
+        if (uiState.categories.isNotEmpty()) {
+            ScrollableTabRow(
+                selectedTabIndex = maxOf(0, uiState.categories.indexOf(uiState.selectedCategory)),
+                containerColor = Color.White,
+                edgePadding = 8.dp,
+                modifier = Modifier.padding(vertical = 4.dp)
+            ) {
+                uiState.categories.forEach { category ->
+                    Tab(
+                        selected = category == uiState.selectedCategory,
+                        onClick = { viewModel.selectCategory(category) },
+                        text = {
+                            Text(
+                                text = category,
+                                modifier = Modifier.padding(horizontal = 12.dp, vertical = 8.dp),
+                                color = if (category == uiState.selectedCategory) Color(0xFFFF69B4) else Color.Gray
+                            )
+                        }
+                    )
+                }
             }
         }
 
-        // ===== СПИСОК ТОВАРОВ =====
-        val products = viewModel.getCurrentProducts()
-
-        if (products.isEmpty()) {
-            Box(
-                modifier = Modifier.fillMaxSize(),
-                contentAlignment = Alignment.Center
-            ) {
-                Text(
-                    "Товары не найдены",
-                    style = MaterialTheme.typography.bodyLarge,
-                    color = Color.Gray
-                )
+        when {
+            uiState.isLoading -> {
+                Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+                    CircularProgressIndicator(color = Color(0xFFFF69B4))
+                }
             }
-        } else {
-            LazyVerticalGrid(
-                columns = GridCells.Fixed(2),
-                contentPadding = PaddingValues(8.dp),
-                horizontalArrangement = Arrangement.spacedBy(8.dp),
-                verticalArrangement = Arrangement.spacedBy(8.dp),
-                modifier = Modifier.fillMaxSize()
-            ) {
-                items(products, key = { it.id }) { product ->
-                    ProductCard(
-                        product = product,
-                        formatPrice = viewModel::formatPrice,
-                        onClick = { selectedProduct = product }
-                    )
+
+            uiState.error != null -> {
+                Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+                    Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                        Text(
+                            text = uiState.error ?: "Ошибка",
+                            style = MaterialTheme.typography.bodyLarge,
+                            color = Color.Red
+                        )
+                        Spacer(modifier = Modifier.height(16.dp))
+                        Button(
+                            onClick = { viewModel.loadProducts() },
+                            colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFFF69B4))
+                        ) {
+                            Text("Повторить")
+                        }
+                    }
+                }
+            }
+
+            else -> {
+                val products = viewModel.getCurrentProducts()
+                if (products.isEmpty()) {
+                    Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+                        Text(
+                            "Товары не найдены",
+                            style = MaterialTheme.typography.bodyLarge,
+                            color = Color.Gray
+                        )
+                    }
+                } else {
+                    LazyVerticalGrid(
+                        columns = GridCells.Fixed(2),
+                        contentPadding = PaddingValues(8.dp),
+                        horizontalArrangement = Arrangement.spacedBy(8.dp),
+                        verticalArrangement = Arrangement.spacedBy(8.dp),
+                        modifier = Modifier.fillMaxSize()
+                    ) {
+                        items(products, key = { it.id }) { product ->
+                            ProductCard(
+                                product = product,
+                                formatPrice = viewModel::formatPrice,
+                                onClick = { selectedProduct = product }
+                            )
+                        }
+                    }
                 }
             }
         }
     }
 
-    // ===== BOTTOM SHEET =====
     selectedProduct?.let { product ->
         ProductDetailSheet(
             product = product,
             onDismiss = { selectedProduct = null },
-            formatPrice = viewModel::formatPrice
+            formatPrice = viewModel::formatPrice,
+            getCategoryName = viewModel::getCategoryName
         )
     }
 }
@@ -117,8 +135,6 @@ fun ProductCard(
     formatPrice: (Int) -> String,
     onClick: () -> Unit
 ) {
-    val priceInRubles = product.priceInKopecks / 100
-
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -137,7 +153,6 @@ fun ProductCard(
                     .clip(RoundedCornerShape(topStart = 16.dp, topEnd = 16.dp)),
                 contentScale = ContentScale.Crop
             )
-
             Column(modifier = Modifier.padding(12.dp)) {
                 Text(
                     text = product.name,
@@ -148,7 +163,7 @@ fun ProductCard(
                 )
                 Spacer(modifier = Modifier.height(4.dp))
                 Text(
-                    text = "$priceInRubles ₽",
+                    text = formatPrice(product.priceInKopecks),
                     style = MaterialTheme.typography.titleMedium,
                     fontWeight = FontWeight.Bold,
                     color = Color(0xFFFF69B4)

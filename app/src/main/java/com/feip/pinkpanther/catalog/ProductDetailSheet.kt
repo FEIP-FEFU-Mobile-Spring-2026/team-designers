@@ -118,13 +118,15 @@ fun ProductDetailSheet(
 
             Spacer(modifier = Modifier.height(8.dp))
 
-            // Категория
-            Text(
-                text = product.category,
-                style = MaterialTheme.typography.bodyMedium,
-                color = MaterialTheme.colorScheme.onSurfaceVariant,
-                modifier = Modifier.padding(horizontal = 20.dp)
-            )
+            // Материал
+            if (product.material.isNotEmpty()) {
+                Text(
+                    text = product.material,
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    modifier = Modifier.padding(horizontal = 20.dp)
+                )
+            }
 
             Spacer(modifier = Modifier.height(16.dp))
 
@@ -162,6 +164,44 @@ fun ProductDetailSheet(
                 modifier = Modifier.padding(horizontal = 20.dp),
                 color = MaterialTheme.colorScheme.onSurface
             )
+
+            // Размеры
+            if (product.sizes.isNotEmpty()) {
+                Spacer(modifier = Modifier.height(20.dp))
+
+                Text(
+                    text = "Размеры",
+                    style = MaterialTheme.typography.titleMedium,
+                    fontWeight = FontWeight.Bold,
+                    modifier = Modifier.padding(horizontal = 20.dp)
+                )
+
+                Spacer(modifier = Modifier.height(8.dp))
+
+                Row(
+                    modifier = Modifier
+                        .padding(horizontal = 20.dp)
+                        .fillMaxWidth(),
+                    horizontalArrangement = Arrangement.spacedBy(8.dp)
+                ) {
+                    product.sizes.forEach { size ->
+                        Surface(
+                            shape = RoundedCornerShape(8.dp),
+                            color = Color(0xFFFFB6C1).copy(alpha = 0.3f)
+                        ) {
+                            Text(
+                                text = size.name,
+                                modifier = Modifier.padding(
+                                    horizontal = 12.dp,
+                                    vertical = 6.dp
+                                ),
+                                style = MaterialTheme.typography.bodyMedium,
+                                color = Color(0xFFC71585)
+                            )
+                        }
+                    }
+                }
+            }
 
             Spacer(modifier = Modifier.height(24.dp))
 

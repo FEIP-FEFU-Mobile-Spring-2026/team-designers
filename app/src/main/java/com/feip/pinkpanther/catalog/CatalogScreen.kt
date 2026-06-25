@@ -5,16 +5,20 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import coil.compose.AsyncImage
 import com.feip.pinkpanther.models.Product
@@ -32,7 +36,7 @@ fun CatalogScreen(
         Text(
             text = "🐾 Розовая Пантера",
             style = MaterialTheme.typography.headlineMedium,
-            color = MaterialTheme.colorScheme.primary,
+            color = Color(0xFFFF69B4),
             fontWeight = FontWeight.Bold,
             modifier = Modifier
                 .fillMaxWidth()
@@ -42,7 +46,7 @@ fun CatalogScreen(
         // ===== ТАБЫ КАТЕГОРИЙ =====
         ScrollableTabRow(
             selectedTabIndex = maxOf(0, uiState.categories.indexOf(uiState.selectedCategory)),
-            containerColor = MaterialTheme.colorScheme.surface,
+            containerColor = Color.White,
             edgePadding = 8.dp,
             modifier = Modifier.padding(vertical = 4.dp)
         ) {
@@ -55,9 +59,9 @@ fun CatalogScreen(
                             text = category,
                             modifier = Modifier.padding(horizontal = 12.dp, vertical = 8.dp),
                             color = if (category == uiState.selectedCategory)
-                                MaterialTheme.colorScheme.primary
+                                Color(0xFFFF69B4)
                             else
-                                MaterialTheme.colorScheme.onSurface
+                                Color.Gray
                         )
                     }
                 )
@@ -75,7 +79,7 @@ fun CatalogScreen(
                 Text(
                     "Товары не найдены",
                     style = MaterialTheme.typography.bodyLarge,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                    color = Color.Gray
                 )
             }
         } else {
@@ -113,18 +117,17 @@ fun ProductCard(
     formatPrice: (Int) -> String,
     onClick: () -> Unit
 ) {
+    val priceInRubles = product.priceInKopecks / 100
+
     Card(
         modifier = Modifier
             .fillMaxWidth()
             .clickable(onClick = onClick),
         shape = RoundedCornerShape(16.dp),
         elevation = CardDefaults.cardElevation(defaultElevation = 4.dp),
-        colors = CardDefaults.cardColors(
-            containerColor = MaterialTheme.colorScheme.surface
-        )
+        colors = CardDefaults.cardColors(containerColor = Color.White)
     ) {
         Column {
-            // Картинка товара
             AsyncImage(
                 model = product.imageUrl,
                 contentDescription = product.name,
@@ -135,36 +138,32 @@ fun ProductCard(
                 contentScale = ContentScale.Crop
             )
 
-            // Информация
-            Column(
-                modifier = Modifier.padding(12.dp)
-            ) {
+            Column(modifier = Modifier.padding(12.dp)) {
                 Text(
                     text = product.name,
                     style = MaterialTheme.typography.titleSmall,
                     fontWeight = FontWeight.Bold,
                     maxLines = 2,
-                    overflow = TextOverflow.Ellipsis,
-                    color = MaterialTheme.colorScheme.onSurface
+                    overflow = TextOverflow.Ellipsis
                 )
                 Spacer(modifier = Modifier.height(4.dp))
                 Text(
-                    text = formatPrice(product.priceInKopecks),
+                    text = "$priceInRubles ₽",
                     style = MaterialTheme.typography.titleMedium,
                     fontWeight = FontWeight.Bold,
-                    color = MaterialTheme.colorScheme.primary
+                    color = Color(0xFFFF69B4)
                 )
                 if (product.isNew) {
                     Spacer(modifier = Modifier.height(4.dp))
                     Surface(
                         shape = RoundedCornerShape(8.dp),
-                        color = MaterialTheme.colorScheme.primary.copy(alpha = 0.15f)
+                        color = Color(0xFFFF69B4).copy(alpha = 0.2f)
                     ) {
                         Text(
                             text = "NEW",
                             modifier = Modifier.padding(horizontal = 8.dp, vertical = 2.dp),
                             style = MaterialTheme.typography.labelSmall,
-                            color = MaterialTheme.colorScheme.primary,
+                            color = Color(0xFFFF69B4),
                             fontWeight = FontWeight.Bold
                         )
                     }

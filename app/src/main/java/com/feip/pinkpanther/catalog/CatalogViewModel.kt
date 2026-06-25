@@ -1,6 +1,7 @@
 package com.feip.pinkpanther.catalog
 
-import androidx.lifecycle.ViewModel
+import android.app.Application
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import com.feip.pinkpanther.models.Product
 import com.feip.pinkpanther.repository.ProductRepository
@@ -9,9 +10,9 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
-class CatalogViewModel : ViewModel() {
+class CatalogViewModel(application: Application) : AndroidViewModel(application) {
 
-    private val repository = ProductRepository()
+    private val repository = ProductRepository(application)
 
     private val _uiState = MutableStateFlow(CatalogUiState())
     val uiState: StateFlow<CatalogUiState> = _uiState.asStateFlow()

@@ -8,9 +8,9 @@
 
 ## 📸 Скриншоты
 
-| Каталог                                           | Детали товара                                    | Корзина |
-|---------------------------------------------------|--------------------------------------------------|---------|
-| <img src="screenshots/catalog1.png" width="250"> | <img src="screenshots/catalog2.png" width="250"> | <img src="screenshots/detail.png" width="250"> | <img src="screenshots/cart.png" width="250"> |
+| Каталог                                          | Детали товара                                    | Корзина |
+|--------------------------------------------------|--------------------------------------------------|---------|
+| <img src="screenshots/catalog2.png" width="250"> | <img src="screenshots/detail.png" width="250"> | <img src="screenshots/cart.png" width="250"> |
 
 ## 🛠 Стек технологий
 

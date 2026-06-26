@@ -20,6 +20,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.feip.pinkpanther.models.Product
+import com.feip.pinkpanther.models.Size
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -27,7 +28,8 @@ fun ProductDetailSheet(
     product: Product,
     onDismiss: () -> Unit,
     formatPrice: (Int) -> String,
-    getCategoryName: (String) -> String
+    getCategoryName: (String) -> String,
+    onAddToCart: (Product, Size?) -> Unit
 ) {
     val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
     var showInfoDialog by remember { mutableStateOf(false) }
@@ -146,7 +148,11 @@ fun ProductDetailSheet(
 
             // Кнопка "В корзину"
             Button(
-                onClick = { /* Пока без логики */ },
+                onClick = {
+                    val size = product.sizes.find { it.name == selectedSize }
+                    onAddToCart(product, size)
+                    onDismiss()
+                },
                 modifier = Modifier.fillMaxWidth().padding(horizontal = 20.dp).height(50.dp),
                 shape = RoundedCornerShape(12.dp),
                 colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFFF69B4))

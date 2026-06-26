@@ -18,12 +18,14 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import coil.compose.AsyncImage
+import com.feip.pinkpanther.cart.CartViewModel
 import com.feip.pinkpanther.models.Product
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CatalogScreen(
-    viewModel: CatalogViewModel = viewModel()
+    viewModel: CatalogViewModel = viewModel(),
+    cartViewModel: CartViewModel
 ) {
     val uiState by viewModel.uiState.collectAsState()
     var selectedProduct by remember { mutableStateOf<Product?>(null) }
@@ -124,7 +126,8 @@ fun CatalogScreen(
             product = product,
             onDismiss = { selectedProduct = null },
             formatPrice = viewModel::formatPrice,
-            getCategoryName = viewModel::getCategoryName
+            getCategoryName = viewModel::getCategoryName,
+            onAddToCart = { product, size -> cartViewModel.addToCart(product, size) }
         )
     }
 }

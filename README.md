@@ -31,3 +31,22 @@
    ```bash
    git clone https://github.com/FEIP-FEFU-Mobile-Spring-2026/team-designers.git
    cd team-designers
+      ```
+
+2. Откройте проект в Android Studio:
+   - Запустите Android Studio
+   - Выберите **File → Open**
+   - Укажите путь к папке `team-designers`
+   - Дождитесь синхронизации Gradle
+
+3. Запустите приложение:
+   - Создайте эмулятор: **Tools → Device Manager → Create Device**
+   - Или подключите физическое устройство с отладкой по USB
+   - Нажмите кнопку ▶️ (Run) в Android Studio
+
+## 👥 Команда
+
+| Участник | Роль |
+|----------|------|
+| Темцина Анастасия Вадимовна | Team Lead / Developer |
+| Малай Виктория Николаевна | Developer / Designer |
